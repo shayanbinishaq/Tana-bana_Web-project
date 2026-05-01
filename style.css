@@ -2,6 +2,16 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }
+.heading{
+    display: block;
+    background-color: rgb(255, 254, 254);
+    color: rgb(12, 12, 12);
+    text-align: center;
+    margin: 0;
+    font-size: 20px;
+    padding: 20px;
+    font-family:cursive;
+}
 #top-head{
     display: block;
     background-color: black;
@@ -47,15 +57,12 @@ body{
 }
 /* Hero Section carousal effect */
 
-/* Carousel Container */
 .carousel {
   position: relative;
   margin: auto;
   overflow: hidden;
   aspect-ratio: 16 / 6;
 }
-
-/* Slides */
 .carousel-item {
   position: absolute;
   width: 100%;
@@ -68,7 +75,7 @@ body{
 .carousel-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 🔥 important for clean scaling */
+  object-fit: cover;
   display: block;
 }
 .carousel {
@@ -78,7 +85,6 @@ body{
 .prev, .next {
   position: absolute;
   top: 50%;
-  /* Keep centered vertically */
   transform: translateY(-50%); 
   background: rgba(0, 0, 0, 0);
   color: rgb(66, 66, 66);
@@ -104,7 +110,7 @@ body{
 .prev:active, .next:active {
   transform: translateY(-50%) scale(0.9);
 }
-.category-scroll {
+.quick-filters {
   display: flex;
   gap: 30px;
   overflow-x: auto;
@@ -112,14 +118,14 @@ body{
   scroll-behavior: smooth;
 }
 
-.category-scroll::-webkit-scrollbar {
-  display: none; /* clean look */
+.quick-filters::-webkit-scrollbar {
+  display: none;
 }
 
-.category-item {
+.filter-item {
   min-width: 160px;
   height: 160px;
-  border-radius: 50%;
+  border-radius: 100%;
   overflow: hidden;
   flex-shrink: 0;
   background: #f5f5f5;
@@ -127,14 +133,34 @@ body{
   align-items: center;
   justify-content: center;
 }
-.category-item img {
+.filter-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.category-item:hover img {
+.filter-item:hover img {
   transform: scale(1.2);
 }
+.shop-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 per row */
+  gap: 15px;
+  padding: 20px;
+}
 
+/* each card */
+.card {
+  width: 100%;
+  aspect-ratio: 3 / 4; /* keeps all same shape */
+  overflow: hidden;
+}
+
+/* images */
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
