@@ -187,7 +187,7 @@ body{
 
 .label a {
   text-decoration: none;
-  color: #000;
+  color: #0f0f0f;
   font-weight: 600;
   display: block;
   transition: color 0.3s ease;
