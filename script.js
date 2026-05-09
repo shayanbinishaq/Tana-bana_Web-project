@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const nextSlide    = slides[nextIndex];
 
       nextSlide.style.zIndex  = 2;
-      currentSlide.style.zIndex = 1;
+      currentSlide.style.zIndex = 0;
       nextSlide.style.opacity = 0;
       nextSlide.offsetHeight; // force repaint
       nextSlide.style.opacity   = 1;

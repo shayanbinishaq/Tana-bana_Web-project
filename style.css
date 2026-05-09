@@ -154,23 +154,27 @@ nav ul li a.nav-active {
 .hero-section {
   position: relative;
 }
-
 .carousel {
   position: relative;
   margin: auto;
   overflow: hidden;
-  aspect-ratio: 16 / 6;
+  width: 100%;
+  height: 500px;
   background: #eee;
 }
 
 .carousel-item {
   position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
+  inset: 0;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
   z-index: 0;
+  display: block;
+}
+
+.carousel-item:first-child {
+  opacity: 1;
+  z-index: 1;
 }
 
 .carousel-item img {
@@ -681,7 +685,7 @@ nav ul li a.nav-active {
   }
 
   .carousel {
-    aspect-ratio: 4 / 3;
+    height: 260px;
   }
 
   .quick-filters,
