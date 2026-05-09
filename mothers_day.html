@@ -1,33 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mothers_day</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mother's Day Sale | Tana Bana</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div>
-    <header id="top-head">
-      <h2>Shop now & get free delivery</h2>
-    </header>
-  </div>
+
+  <header id="top-head">
+    <h2>Shop now &amp; get free delivery</h2>
+  </header>
+
   <div class="nav-bar">
     <header class="nav">
       <div class="logo">
-         <a href="index.html">
-        <img src="assets/main page/logo/logo_desktop.png" alt="logo.png" />
+        <a href="index.html">
+          <img src="assets/main page/logo/logo_desktop.png" alt="Tana Bana" />
         </a>
       </div>
       <nav>
         <ul>
-          <li><a href="mothers_day.html">MOTHER'S DAY SALE</a></li>
+          <li><a href="mothers_day.html" class="nav-active">MOTHER'S DAY SALE</a></li>
           <li><a href="spring_summer.html">SPRING SUMMER 2026</a></li>
-          <li><a href="ready_to_wear.html">READY TO WEAR</a></li>
+          <li><a href="Ready_to_wear.html">READY TO WEAR</a></li>
         </ul>
       </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
     </header>
-    mother's day
-    <script src="script.js"></script>
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav-close" id="mobileNavClose">&#x2715;</button>
+      <ul>
+        <li><a href="mothers_day.html">MOTHER'S DAY SALE</a></li>
+        <li><a href="spring_summer.html">SPRING SUMMER 2026</a></li>
+        <li><a href="Ready_to_wear.html">READY TO WEAR</a></li>
+      </ul>
+    </div>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  </div>
+
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>&#8250;</span>
+    <span>Mother's Day Sale</span>
+  </div>
+
+ <!-- Quick filters -->
+  <div class="quick-filters">
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/trending_now.png">
+    </div>
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/affordable.png">
+    </div>
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/upto_50_off.png">
+    </div>
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/upto_40_off.png">
+    </div>
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/upto_30_off.png">
+    </div>
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/under_5000.png">
+    </div>
+    <div class="filter-item">
+      <img src="assets/main page/collection_carousel/under_7000.png">
+    </div>
+  </div>
+
+  
+  <section class="products-section">
+    <div class="product-grid" id="productGrid">
+
+      <div class="product-card" data-brand="ELYSEE" data-price="13993" data-name="3 Piece Embroidered Silk EET-06">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/EET-06_main.webp" alt="EET-06 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/EET-06_hover.webp" alt="EET-06 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">ELYSEE</div>
+          <h3>3 Piece - Embroidered Silk - EET-06</h3>
+          <div class="price-wrap"><span class="price-original">Rs.19,990</span><span class="price-sale">Rs.13,993</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="ELYSEE" data-price="11995" data-name="3 Piece Embroidered Silk EET-10">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/EET-10_main.webp" alt="EET-10 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/EET-10_hover.webp" alt="EET-10 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">ELYSEE</div>
+          <h3>3 Piece - Embroidered Silk - EET-10</h3>
+          <div class="price-wrap"><span class="price-original">Rs.15,900</span><span class="price-sale">Rs.11,995</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="ELYSEE" data-price="12990" data-name="3 Piece Embroidered Silk EET-09">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/EET-09_main.webp" alt="EET-09 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/EET-09_hover.webp" alt="EET-09 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">ELYSEE</div>
+          <h3>3 Piece - Embroidered Silk - EET-09</h3>
+          <div class="price-wrap"><span class="price-original">Rs.18,500</span><span class="price-sale">Rs.12,990</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="Pret Avenue" data-price="8490" data-name="3 Piece Embroidered Suit PEL-09">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/PEL-09_main.webp" alt="PEL-09 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/PEL-09_hover.webp" alt="PEL-09 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">Pret Avenue</div>
+          <h3>3 Piece - Embroidered Suit - PEL-09</h3>
+          <div class="price-wrap"><span class="price-original">Rs.11,990</span><span class="price-sale">Rs.8,490</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="Pret Avenue" data-price="8490" data-name="3 Piece Embroidered Suit PEL-10">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/PEL-10_main.webp" alt="PEL-10 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/PEL-10_hover.webp" alt="PEL-10 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">Pret Avenue</div>
+          <h3>3 Piece - Embroidered Suit - PEL-10</h3>
+          <div class="price-wrap"><span class="price-original">Rs.11,990</span><span class="price-sale">Rs.8,490</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="Pret Avenue" data-price="8490" data-name="3 Piece Embroidered Suit PEL-06">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/PEL-06_main.webp" alt="PEL-06 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/PEL-06_hover.webp" alt="PEL-06 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">Pret Avenue</div>
+          <h3>3 Piece - Embroidered Suit - PEL-06</h3>
+          <div class="price-wrap"><span class="price-original">Rs.11,990</span><span class="price-sale">Rs.8,490</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="Pret Avenue" data-price="8490" data-name="3 Piece Embroidered Suit PEL-07">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/PEL-07_main.webp" alt="PEL-07 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/PEL-07_hover.webp" alt="PEL-07 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">Pret Avenue</div>
+          <h3>3 Piece - Embroidered Suit - PEL-07</h3>
+          <div class="price-wrap"><span class="price-original">Rs.11,990</span><span class="price-sale">Rs.8,490</span></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-brand="ELYSEE" data-price="13993" data-name="3 Piece Embroidered Silk EET-01">
+        <div class="img-wrap">
+          <img class="img-main" src="assets/Mother's day sale/products/page_1/EET-01_main.jpg" alt="EET-01 Main">
+          <img class="img-hover" src="assets/Mother's day sale/products/page_1/EET-01_hover.jpg" alt="EET-01 Hover">
+          <button class="wishlist-btn" aria-label="Add to wishlist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <div class="quick-add">SELECT OPTIONS</div>
+        </div>
+        <div class="product-info">
+          <div class="vendor">ELYSEE</div>
+          <h3>3 Piece - Embroidered Silk - EET-01</h3>
+          <div class="price-wrap"><span class="price-original">Rs.19,990</span><span class="price-sale">Rs.13,993</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      Copyright & 2026 <strong>Tana Bana Fabrics</strong> — All rights reserved. | <a href="mailto:info@tanabana.com.pk">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

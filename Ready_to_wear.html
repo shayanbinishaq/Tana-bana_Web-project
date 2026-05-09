@@ -1,33 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ready to Wear</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ready to Wear | Tana Bana</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div>
-    <header id="top-head">
-      <h2>Shop now & get free delivery</h2>
-    </header>
-  </div>
+
+  <header id="top-head">
+    <h2>Shop now &amp; get free delivery</h2>
+  </header>
+
   <div class="nav-bar">
     <header class="nav">
       <div class="logo">
-         <a href="index.html">
-        <img src="assets/main page/logo/logo_desktop.png" alt="logo.png" />
+        <a href="index.html">
+          <img src="assets/main page/logo/logo_desktop.png" alt="Tana Bana" />
         </a>
       </div>
       <nav>
         <ul>
           <li><a href="mothers_day.html">MOTHER'S DAY SALE</a></li>
           <li><a href="spring_summer.html">SPRING SUMMER 2026</a></li>
-          <li><a href="ready_to_wear.html">READY TO WEAR</a></li>
+          <li><a href="Ready_to_wear.html" class="nav-active">READY TO WEAR</a></li>
         </ul>
       </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
     </header>
-    ready to wear
-    <script src="script.js"></script>
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav-close" id="mobileNavClose">&#x2715;</button>
+      <ul>
+        <li><a href="mothers_day.html">MOTHER'S DAY SALE</a></li>
+        <li><a href="spring_summer.html">SPRING SUMMER 2026</a></li>
+        <li><a href="Ready_to_wear.html">READY TO WEAR</a></li>
+      </ul>
+    </div>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  </div>
+
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>&#8250;</span>
+    <span>Ready to Wear</span>
+  </div>
+
+  <div class="collection-banner">
+    <div class="collection-banner-text">
+      <h1>Ready to Wear</h1>
+      <p>Effortless style, ready when you are. Explore our curated pret collection.</p>
+    </div>
+  </div>
+
+  <div class="coming-soon-section">
+    <div class="coming-soon-inner">
+      <p class="coming-soon-icon">&#128126;</p>
+      <h2>Collection Coming Soon</h2>
+      <p>We're adding products to this collection. Check back shortly.</p>
+      <a href="index.html" class="btn-back-home">Back to Home</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-bottom">
+      Copyright &copy; 2026 <strong>Tana Bana Fabrics</strong> — All rights reserved. | <a href="mailto:info@tanabana.com.pk">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
