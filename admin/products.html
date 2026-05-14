@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products | Tana Bana Admin</title>
+  <link rel="stylesheet" href="admin.css"/>
+</head>
+<body>
+  <div id="app" class="app">
+    <aside class="sidebar">
+      <div class="brand">Tana Bana</div>
+      <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="../index.html" target="_blank">View Site ↗</a>
+      </nav>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </aside>
+    <main class="content">
+      <div class="page-header">
+        <h1>Products</h1>
+        <button class="btn-primary" onclick="openModal()">+ Add Product</button>
+      </div>
+      <div class="toolbar">
+        <input id="searchInput" type="text" placeholder="Search by name or brand…" oninput="filterTable()"/>
+        <select id="filterCollection" onchange="filterTable()">
+          <option value="">All Collections</option>
+          <option value="Mothers Day Sale">Mothers Day Sale</option>
+          <option value="Spring Summer 2026">Spring Summer 2026</option>
+          <option value="Ready To Wear">Ready To Wear</option>
+        </select>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Price</th>
+            <th>Collection</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productBody"></tbody>
+      </table>
+      <p id="emptyMsg" class="empty-msg hidden">No products found.</p>
+    </main>
+  </div>
+
+  <div class="modal-overlay hidden" id="modalOverlay" onclick="closeModal()"></div>
+  <div class="modal hidden" id="modal">
+    <h2 id="modalTitle">Add Product</h2>
+    <form id="productForm" onsubmit="submitProduct(event)">
+      <input type="hidden" id="editId"/>
+      <label>Name<input type="text" id="fName" required placeholder="e.g. 3 Piece Embroidered Suit - EET-06"/></label>
+      <label>Brand<input type="text" id="fBrand" required placeholder="e.g. ELYSEE"/></label>
+      <label>Price (Rs)<input type="number" id="fPrice" required min="0" placeholder="e.g. 13993"/></label>
+      <label>Category<input type="text" id="fCategory" placeholder="e.g. Embroidered, Unstitched"/></label>
+      <label>Collection
+        <select id="fCollection" required>
+          <option value="">— Select collection —</option>
+          <option value="Mothers Day Sale">Mothers Day Sale</option>
+          <option value="Spring Summer 2026">Spring Summer 2026</option>
+          <option value="Ready To Wear">Ready To Wear</option>
+        </select>
+      </label>
+      <label>Main Image
+        <input type="file" id="fImgMain" accept="image/*"/>
+        <div id="previewMain" class="img-preview"></div>
+      </label>
+      <label>Hover Image
+        <input type="file" id="fImgHover" accept="image/*"/>
+        <div id="previewHover" class="img-preview"></div>
+      </label>
+      <div class="modal-actions">
+        <button type="button" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary" id="submitBtn">Save</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let allProducts = [];
+
+    // Auth guard
+    fetch('/api/admin/me').then(r => { if (!r.ok) location.href = 'index.html'; });
+
+    async function doLogout() {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      location.href = 'index.html';
+    }
+
+    async function load() {
+      const res = await fetch('/api/products');
+      allProducts = await res.json();
+      renderTable(allProducts);
+    }
+
+    function filterTable() {
+      const q   = document.getElementById('searchInput').value.toLowerCase();
+      const col = document.getElementById('filterCollection').value;
+      const filtered = allProducts.filter(p =>
+        (!q   || p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)) &&
+        (!col || p.collection === col)
+      );
+      renderTable(filtered);
+    }
+
+    function renderTable(products) {
+      const empty = document.getElementById('emptyMsg');
+      if (!products.length) {
+        document.getElementById('productBody').innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      document.getElementById('productBody').innerHTML = products.map(p => `
+        <tr>
+          <td>${p.img_main
+            ? `<img src="/uploads/${p.img_main}" class="thumb" onerror="this.style.display='none'"/>`
+            : '<span class="no-img">No image</span>'}</td>
+          <td>${esc(p.name)}</td>
+          <td>${esc(p.brand)}</td>
+          <td>Rs.${Number(p.price).toLocaleString()}</td>
+          <td><span class="badge">${esc(p.collection || '—')}</span></td>
+          <td class="action-btns">
+            <button class="btn-sm" onclick="editProduct(${p.id})">Edit</button>
+            <button class="btn-sm btn-danger" onclick="deleteProduct(${p.id}, '${esc(p.name)}')">Delete</button>
+          </td>
+        </tr>`).join('');
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function openModal(product = null) {
+      document.getElementById('editId').value       = product?.id || '';
+      document.getElementById('fName').value        = product?.name || '';
+      document.getElementById('fBrand').value       = product?.brand || '';
+      document.getElementById('fPrice').value       = product?.price || '';
+      document.getElementById('fCategory').value    = product?.category || '';
+      document.getElementById('fCollection').value  = product?.collection || '';
+      document.getElementById('previewMain').innerHTML  = product?.img_main
+        ? `<img src="/uploads/${product.img_main}" alt="current main"/>` : '';
+      document.getElementById('previewHover').innerHTML = product?.img_hover
+        ? `<img src="/uploads/${product.img_hover}" alt="current hover"/>` : '';
+      document.getElementById('modalTitle').textContent = product ? 'Edit Product' : 'Add Product';
+      document.getElementById('submitBtn').textContent  = product ? 'Update' : 'Add Product';
+      document.getElementById('modal').classList.remove('hidden');
+      document.getElementById('modalOverlay').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+      document.getElementById('modalOverlay').classList.add('hidden');
+      document.getElementById('productForm').reset();
+      document.getElementById('previewMain').innerHTML  = '';
+      document.getElementById('previewHover').innerHTML = '';
+    }
+
+    async function editProduct(id) {
+      const p = await (await fetch(`/api/products/${id}`)).json();
+      openModal(p);
+    }
+
+    async function deleteProduct(id, name) {
+      if (!confirm(`Delete "${name}"?\nThis cannot be undone.`)) return;
+      const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+      if (res.ok) { load(); }
+      else { alert('Delete failed. Please try again.'); }
+    }
+
+    async function submitProduct(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+
+      const id = document.getElementById('editId').value;
+      const fd = new FormData();
+      fd.append('name',       document.getElementById('fName').value);
+      fd.append('brand',      document.getElementById('fBrand').value);
+      fd.append('price',      document.getElementById('fPrice').value);
+      fd.append('category',   document.getElementById('fCategory').value);
+      fd.append('collection', document.getElementById('fCollection').value);
+      const m = document.getElementById('fImgMain').files[0];
+      const h = document.getElementById('fImgHover').files[0];
+      if (m) fd.append('img_main',  m);
+      if (h) fd.append('img_hover', h);
+
+      const res = await fetch(
+        id ? `/api/products/${id}` : '/api/products',
+        { method: id ? 'PUT' : 'POST', body: fd }
+      );
+      btn.disabled = false;
+
+      if (res.ok) { closeModal(); load(); }
+      else {
+        const err = await res.json().catch(() => ({}));
+        alert('Save failed: ' + (err.error || res.statusText));
+        btn.textContent = id ? 'Update' : 'Add Product';
+      }
+    }
+
+    // Live image preview
+    ['fImgMain','fImgHover'].forEach(id => {
+      document.getElementById(id).addEventListener('change', function() {
+        const previewId = id === 'fImgMain' ? 'previewMain' : 'previewHover';
+        const preview   = document.getElementById(previewId);
+        if (this.files[0]) {
+          const reader = new FileReader();
+          reader.onload = e => { preview.innerHTML = `<img src="${e.target.result}" alt="preview"/>`; };
+          reader.readAsDataURL(this.files[0]);
+        }
+      });
+    });
+
+    load();
+  </script>
+</body>
+</html>

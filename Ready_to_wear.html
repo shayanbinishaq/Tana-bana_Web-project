@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ready to Wear | Tana Bana</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header id="top-head">
+    <h2>Shop now &amp; get free delivery</h2>
+  </header>
+
+  <div class="nav-bar">
+    <header class="nav">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/main page/logo/logo_desktop.png" alt="Tana Bana" />
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="mothers_day.html">MOTHER'S DAY SALE</a></li>
+          <li><a href="spring_summer.html">SPRING SUMMER 2026</a></li>
+          <li><a href="Ready_to_wear.html" class="nav-active">READY TO WEAR</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
+    </header>
+    <div class="mobile-nav" id="mobileNav">
+      <button class="mobile-nav-close" id="mobileNavClose">&#x2715;</button>
+      <ul>
+        <li><a href="mothers_day.html">MOTHER'S DAY SALE</a></li>
+        <li><a href="spring_summer.html">SPRING SUMMER 2026</a></li>
+        <li><a href="Ready_to_wear.html">READY TO WEAR</a></li>
+      </ul>
+    </div>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  </div>
+
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>&#8250;</span>
+    <span>Ready to Wear</span>
+  </div>
+
+  <div class="quick-filters">
+    <div class="filter-item"><img src="assets/main page/collection_carousel/trending_now.png" alt="Trending Now"></div>
+    <div class="filter-item"><img src="assets/main page/collection_carousel/affordable.png" alt="Affordable"></div>
+    <div class="filter-item"><img src="assets/main page/collection_carousel/upto_50_off.png" alt="Upto 50% Off"></div>
+    <div class="filter-item"><img src="assets/main page/collection_carousel/upto_40_off.png" alt="Upto 40% Off"></div>
+    <div class="filter-item"><img src="assets/main page/collection_carousel/upto_30_off.png" alt="Upto 30% Off"></div>
+    <div class="filter-item"><img src="assets/main page/collection_carousel/under_5000.png" alt="Under 5000"></div>
+    <div class="filter-item"><img src="assets/main page/collection_carousel/under_7000.png" alt="Under 7000"></div>
+  </div>
+
+  <section class="products-section">
+    <div class="product-grid" id="productGrid">
+      <div class="loading-state">Loading products…</div>
+    </div>
+  </section>
+  <footer class="site-footer">
+
+    <div class="footer-grid">
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+
+        <div class="footer-contact">
+          <p>✉ info@tanabana.com.pk</p>
+          <p>☎ +92 304 111 8011</p>
+          <p>🟢 +92 305 444 0012</p>
+        </div>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <h4>Company Information</h4>
+
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Exchange & Returns Policy</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Store Locator</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer -->
+      <div class="footer-col">
+        <h4>Customer Information</h4>
+
+        <ul>
+          <li><a href="#">Track your order</a></li>
+          <li><a href="#">Career</a></li>
+          <li><a href="#">FAQ's</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="footer-col">
+        <h4>Sign up and save</h4>
+
+        <p>
+          Subscribe to get special offers, free giveaways,
+          and once-in-a-lifetime deals.
+        </p>
+
+        <div class="newsletter-box">
+          <input type="email" placeholder="Your email address">
+          <button type="submit">Subscribe</button>
+        </div>
+
+        <div class="socials">
+          <a href="#">FB</a>
+          <a href="#">IG</a>
+          <a href="#">PT</a>
+          <a href="#">YT</a>
+          <a href="#">TT</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      Copyright © 2026 Tana Bana Fabrics all rights reserved.
+    </div>
+
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    loadProducts("Ready To Wear");
+  </script>
+</body>
+
+</html>
