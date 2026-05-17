@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  /* ══════════════════════════════════════
-     HERO CAROUSEL (index.html)
-  ══════════════════════════════════════ */
   const slides = document.querySelectorAll(".carousel-item");
   const nextBtn = document.querySelector(".next");
   const prevBtn = document.querySelector(".prev");
@@ -18,29 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
     function goToSlide(nextIndex) {
       if (isAnimating || nextIndex === current) return;
       isAnimating = true;
-
       const currentSlide = slides[current];
       const nextSlide = slides[nextIndex];
-
       nextSlide.style.zIndex = 2;
       currentSlide.style.zIndex = 0;
       nextSlide.style.opacity = 0;
-      nextSlide.offsetHeight; // force repaint
+      nextSlide.offsetHeight;
       nextSlide.style.opacity = 1;
       currentSlide.style.opacity = 0;
-
-      setTimeout(() => {
-        current = nextIndex;
-        isAnimating = false;
-      }, 800);
+      setTimeout(() => { current = nextIndex; isAnimating = false; }, 800);
     }
 
-    function nextSlide() {
-      goToSlide((current + 1) % slides.length);
-    }
-    function prevSlide() {
-      goToSlide((current - 1 + slides.length) % slides.length);
-    }
+    function nextSlide() { goToSlide((current + 1) % slides.length); }
+    function prevSlide() { goToSlide((current - 1 + slides.length) % slides.length); }
 
     nextBtn.addEventListener("click", nextSlide);
     prevBtn.addEventListener("click", prevSlide);
@@ -48,14 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let auto = setInterval(nextSlide, 4000);
     const carousel = document.querySelector(".carousel");
     carousel.addEventListener("mouseenter", () => clearInterval(auto));
-    carousel.addEventListener("mouseleave", () => {
-      auto = setInterval(nextSlide, 4000);
-    });
+    carousel.addEventListener("mouseleave", () => { auto = setInterval(nextSlide, 4000); });
   }
 
-  /* ══════════════════════════════════════
-     MOBILE NAV (all pages)
-  ══════════════════════════════════════ */
   const hamburger = document.getElementById("hamburger");
   const mobileNav = document.getElementById("mobileNav");
   const mobileNavClose = document.getElementById("mobileNavClose");
@@ -77,9 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
     mobileNavOverlay.addEventListener("click", closeMobileNav);
   }
 
-  /* ══════════════════════════════════════
-     FILTER SIDEBAR (mothers_day.html)
-  ══════════════════════════════════════ */
   const openFilterBtn = document.getElementById("openFilter");
   const closeFilterBtn = document.getElementById("closeFilter");
   const applyFilterBtn = document.getElementById("applyFilter");
@@ -103,36 +82,25 @@ document.addEventListener("DOMContentLoaded", () => {
     closeFilterBtn.addEventListener("click", closeFilterPanel);
     filterOverlay.addEventListener("click", closeFilterPanel);
 
-    /* ── Filter logic ── */
     const allCards = Array.from(document.querySelectorAll(".product-card"));
     const productCount = document.getElementById("productCount");
     const noResults = document.getElementById("noResults");
 
     function applyFilters() {
-      const checkedBrands = Array.from(
-        document.querySelectorAll('.filter-check[data-filter="brand"]:checked'),
-      ).map((c) => c.value);
-      const checkedPrices = Array.from(
-        document.querySelectorAll('.filter-check[data-filter="price"]:checked'),
-      ).map((c) => c.value);
+      const checkedBrands = Array.from(document.querySelectorAll('.filter-check[data-filter="brand"]:checked')).map((c) => c.value);
+      const checkedPrices = Array.from(document.querySelectorAll('.filter-check[data-filter="price"]:checked')).map((c) => c.value);
 
       let visible = 0;
       allCards.forEach((card) => {
         const brand = card.dataset.brand;
         const price = parseInt(card.dataset.price);
-
-        const brandOk =
-          checkedBrands.length === 0 || checkedBrands.includes(brand);
-        const priceOk =
-          checkedPrices.length === 0 ||
-          checkedPrices.some((range) => {
-            if (range === "under-10000") return price < 10000;
-            if (range === "10000-15000")
-              return price >= 10000 && price <= 15000;
-            if (range === "above-15000") return price > 15000;
-            return true;
-          });
-
+        const brandOk = checkedBrands.length === 0 || checkedBrands.includes(brand);
+        const priceOk = checkedPrices.length === 0 || checkedPrices.some((range) => {
+          if (range === "under-10000") return price < 10000;
+          if (range === "10000-15000") return price >= 10000 && price <= 15000;
+          if (range === "above-15000") return price > 15000;
+          return true;
+        });
         const show = brandOk && priceOk;
         card.style.display = show ? "" : "none";
         if (show) visible++;
@@ -144,9 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function clearFilters() {
-      document
-        .querySelectorAll(".filter-check")
-        .forEach((c) => (c.checked = false));
+      document.querySelectorAll(".filter-check").forEach((c) => (c.checked = false));
       allCards.forEach((card) => (card.style.display = ""));
       productCount.textContent = `Showing ${allCards.length} of ${allCards.length} products`;
       noResults.style.display = "none";
@@ -158,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetInline = document.getElementById("resetFiltersInline");
     if (resetInline) resetInline.addEventListener("click", clearFilters);
 
-    /* ── Sort ── */
     const sortSelect = document.getElementById("sortSelect");
     const grid = document.getElementById("productGrid");
 
@@ -166,28 +131,22 @@ document.addEventListener("DOMContentLoaded", () => {
       sortSelect.addEventListener("change", () => {
         const val = sortSelect.value;
         const cards = Array.from(grid.querySelectorAll(".product-card"));
-
         cards.sort((a, b) => {
           const nameA = a.dataset.name;
           const nameB = b.dataset.name;
           const priceA = parseInt(a.dataset.price);
           const priceB = parseInt(b.dataset.price);
-
           if (val === "price-asc") return priceA - priceB;
           if (val === "price-desc") return priceB - priceA;
           if (val === "name-asc") return nameA.localeCompare(nameB);
           if (val === "name-desc") return nameB.localeCompare(nameA);
           return 0;
         });
-
         cards.forEach((c) => grid.insertBefore(c, noResults));
       });
     }
   }
 
-  /* ══════════════════════════════════════
-     WISHLIST TOGGLE (mothers_day.html)
-  ══════════════════════════════════════ */
   document.querySelectorAll(".wishlist-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -202,32 +161,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* ══════════════════════════════════════
-   DYNAMIC PRODUCT LOADER
-   Called by collection pages on load:
-   loadProducts("Mothers Day Sale")
-   loadProducts("Spring Summer 2026")
-   loadProducts("Ready To Wear")
-══════════════════════════════════════ */
-
 const HEART_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
 </svg>`;
 
 function buildProductCard(p) {
-const isUpload = p.img_main && !p.img_main.startsWith('assets/');
-const imgMain  = p.img_main  ? (isUpload ? `/uploads/${p.img_main}` : `/${p.img_main}`) : '';
-const imgHover = p.img_hover ? (p.img_hover.startsWith('assets/') ? `/${p.img_hover}` : `/uploads/${p.img_hover}`) : imgMain;
+  const isUpload = p.img_main && !p.img_main.startsWith('assets/');
+  const imgMain  = p.img_main  ? (isUpload ? `/uploads/${p.img_main}` : `/${p.img_main}`) : '';
+  const imgHover = p.img_hover ? (p.img_hover.startsWith('assets/') ? `/${p.img_hover}` : `/uploads/${p.img_hover}`) : imgMain;
   const price = Number(p.price).toLocaleString("en-PK");
   return `
-    <div class="product-card" data-brand="${escHtml(p.brand)}" data-price="${p.price}" data-name="${escHtml(p.name)}">
+    <div class="product-card" data-brand="${escHtml(p.brand)}" data-price="${p.price}" data-name="${escHtml(p.name)}" onclick="location.href='product.html?id=${p.id}'" style="cursor:pointer">
       <div class="img-wrap">
         <img class="img-main" src="${imgMain}" alt="${escHtml(p.name)} main"
              onerror="this.src='assets/main page/placeholder.png'">
         <img class="img-hover" src="${imgHover}" alt="${escHtml(p.name)} hover"
              onerror="this.src='assets/main page/placeholder.png'">
         <button class="wishlist-btn" aria-label="Add to wishlist" data-active="false"
-                onclick="toggleWishlist(this)">${HEART_SVG}</button>
+                onclick="event.stopPropagation();toggleWishlist(this)">${HEART_SVG}</button>
         <div class="quick-add">SELECT OPTIONS</div>
       </div>
       <div class="product-info">
@@ -265,14 +216,12 @@ async function loadProducts(collection) {
     if (!res.ok) throw new Error("API error " + res.status);
     const products = await res.json();
     if (!products.length) {
-      grid.innerHTML =
-        '<div class="empty-state">No products found in this collection.</div>';
+      grid.innerHTML = '<div class="empty-state">No products found in this collection.</div>';
       return;
     }
     grid.innerHTML = products.map(buildProductCard).join("");
   } catch (err) {
     console.error("loadProducts error:", err);
-    grid.innerHTML =
-      '<div class="empty-state">Could not load products. Please try again later.</div>';
+    grid.innerHTML = '<div class="empty-state">Could not load products. Please try again later.</div>';
   }
 }
