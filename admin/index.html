@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard | Tana Bana</title>
+  <title>Admin Login | Tana Bana</title>
   <link rel="stylesheet" href="admin.css"/>
 </head>
 <body>
@@ -17,26 +17,6 @@
     </div>
   </div>
 
-  <div id="app" class="app hidden">
-    <aside class="sidebar">
-      <div class="brand">Tana Bana</div>
-      <nav>
-        <a href="index.html" class="active">Dashboard</a>
-        <a href="products.html">Products</a>
-        <a href="../index.html" target="_blank">View Site ↗</a>
-      </nav>
-      <button class="logout-btn" onclick="doLogout()">Logout</button>
-    </aside>
-    <main class="content">
-      <h1>Dashboard</h1>
-      <div class="stat-grid">
-        <div class="stat-card"><span class="stat-num" id="totalProducts">—</span><span class="stat-label">Total Products</span></div>
-        <div class="stat-card"><span class="stat-num" id="totalBrands">—</span><span class="stat-label">Brands</span></div>
-        <div class="stat-card"><span class="stat-num" id="totalCollections">—</span><span class="stat-label">Collections</span></div>
-      </div>
-    </main>
-  </div>
-
   <script>
     async function doLogin() {
       const res = await fetch('/api/admin/login', {
@@ -44,23 +24,11 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: document.getElementById('loginUser').value, password: document.getElementById('loginPass').value }),
       });
-      if (res.ok) showApp();
+      if (res.ok) location.href = 'products.html';
       else document.getElementById('loginErr').textContent = 'Invalid credentials';
     }
-    async function doLogout() {
-      await fetch('/api/admin/logout', { method: 'POST' });
-      document.getElementById('app').classList.add('hidden');
-      document.getElementById('loginScreen').classList.remove('hidden');
-    }
-    async function showApp() {
-      document.getElementById('loginScreen').classList.add('hidden');
-      document.getElementById('app').classList.remove('hidden');
-      const data = await (await fetch('/api/products')).json();
-      document.getElementById('totalProducts').textContent    = data.length;
-      document.getElementById('totalBrands').textContent      = new Set(data.map(p => p.brand)).size;
-      document.getElementById('totalCollections').textContent = new Set(data.map(p => p.collection)).size;
-    }
-    fetch('/api/admin/me').then(r => { if (r.ok) showApp(); });
+
+    fetch('/api/admin/me').then(r => { if (r.ok) location.href = 'products.html'; });
   </script>
 </body>
 </html>

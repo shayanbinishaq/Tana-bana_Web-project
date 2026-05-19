@@ -27,11 +27,7 @@
         <li><a href="Ready_to_wear.html">READY TO WEAR</a></li>
         <li><a href="#">UNSTITCHED</a></li>
         <li><a href="#">FESTIVE WEAR</a></li>
-        <li>
-          <button class="cart-nav-btn" onclick="openCartDrawer()">
-            CART (<span id="cartBadgeNum">0</span>)
-          </button>
-        </li>
+
       </ul>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="Open menu">&#9776;</button>
@@ -61,40 +57,9 @@
   <div class="page-loading">Loading product…</div>
 </div>
 
-<div class="cart-overlay" id="cartOverlay" onclick="closeCartDrawer()"></div>
-<aside class="cart-drawer" id="cartDrawer">
-  <div class="cd-head">
-    <span class="cd-title">SHOPPING CART</span>
-    <button class="cd-close" onclick="closeCartDrawer()">&#x2715;</button>
-  </div>
-  <div class="cd-items" id="cdItems">
-    <p class="cd-empty">Your cart is empty.</p>
-  </div>
-  <div class="cd-foot" id="cdFoot" style="display:none">
-    <div class="cd-subtotal-row">
-      <span class="cd-sub-label">SUBTOTAL:</span>
-      <span class="cd-sub-val" id="cdSubtotal">Rs.0</span>
-    </div>
-    <button class="btn-view-cart" onclick="closeCartDrawer()">VIEW CART</button>
-    <button class="btn-checkout">CHECK OUT</button>
-  </div>
-</aside>
-
-<div class="tb-toast" id="tbToast"></div>
-
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const CART_KEY = 'tb_cart_v1';
-function getCart()  { try { return JSON.parse(localStorage.getItem(CART_KEY))||[]; } catch { return []; } }
-function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); refreshBadge(); }
-
-function refreshBadge() {
-  const n = getCart().reduce((s,i)=>s+i.qty,0);
-  const el = document.getElementById('cartBadgeNum');
-  if(el) el.textContent = n;
-}
-
 const pid = new URLSearchParams(location.search).get('id');
 let _product=null, _qty=1, _size='S';
 
@@ -153,15 +118,6 @@ function render(p) {
         <div class="size-label">SIZE: <span id="sLbl">S</span><span class="size-guide-link">Size Guide</span></div>
         <div class="size-options">
           ${['S','M','L','XL'].map(s=>`<button class="size-btn${s==='S'?' selected':''}" data-s="${s}" onclick="pickSize(this)">${s}</button>`).join('')}
-        </div>
-
-        <div class="atc-row">
-          <div class="qty-ctrl">
-            <button class="qty-btn" onclick="chQty(-1)">&#8722;</button>
-            <span id="qtyNum">1</span>
-            <button class="qty-btn" onclick="chQty(1)">+</button>
-          </div>
-          <button class="btn-atc" onclick="addToCart()">ADD TO CART</button>
         </div>
 
         <div class="pi-divider"></div>
@@ -223,52 +179,6 @@ function toggleAcc(id) {
   if(i) i.innerHTML=o?'&#8722;':'+';
 }
 
-function addToCart() {
-  if(!_product) return;
-  const cart=getCart(), key=_product.id+'_'+_size;
-  const ex=cart.find(i=>i.key===key);
-  if(ex){ ex.qty+=_qty; }
-  else {
-    const isUp=_product.img_main&&!_product.img_main.startsWith('assets/');
-    cart.push({ key, id:_product.id, name:_product.name, brand:_product.brand,
-      price:_product.price, size:_size, qty:_qty,
-      img:_product.img_main?(isUp?'/uploads/'+_product.img_main:'/'+_product.img_main):null });
-  }
-  saveCart(cart); showToast('Added to cart — Size '+_size);
-  renderDrawer(); openCartDrawer();
-}
-
-function openCartDrawer()  { renderDrawer(); document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeCartDrawer() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow=''; }
-
-function renderDrawer() {
-  const cart=getCart(), items=document.getElementById('cdItems'), foot=document.getElementById('cdFoot');
-  if(!cart.length){ items.innerHTML='<p class="cd-empty">Your cart is empty.</p>'; foot.style.display='none'; return; }
-  foot.style.display='block';
-  document.getElementById('cdSubtotal').textContent='Rs.'+cart.reduce((s,i)=>s+i.price*i.qty,0).toLocaleString('en-PK');
-  items.innerHTML=cart.map(it=>`
-    <div class="cd-item">
-      <div>${it.img?`<img class="cd-item-img" src="${esc(it.img)}" onerror="this.style.display='none'"/>`:'<div class="cd-item-img"></div>'}</div>
-      <div>
-        <div class="cd-item-name">${esc(it.name)}</div>
-        <div class="cd-item-meta">${esc(it.brand)} · Size ${esc(it.size)}</div>
-        <div class="cd-item-price">Rs.${Number(it.price).toLocaleString('en-PK')}</div>
-        <div class="cd-qty">
-          <button class="cdqb" onclick="cdQ('${it.key}',-1)">&#8722;</button>
-          <span class="cdqn">${it.qty}</span>
-          <button class="cdqb" onclick="cdQ('${it.key}',1)">+</button>
-        </div>
-      </div>
-      <button class="cd-remove" onclick="cdRm('${it.key}')">&#x2715;</button>
-    </div>`).join('');
-}
-
-function cdQ(k,d){ const c=getCart(),it=c.find(i=>i.key===k); if(!it)return; it.qty=Math.max(1,it.qty+d); saveCart(c); renderDrawer(); }
-function cdRm(k) { saveCart(getCart().filter(i=>i.key!==k)); renderDrawer(); }
-
-function showToast(msg){ const t=document.getElementById('tbToast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2600); }
-
-refreshBadge();
 loadProduct();
 </script>
 </body>
